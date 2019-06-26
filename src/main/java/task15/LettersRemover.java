@@ -5,6 +5,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class LettersRemover {
+    private static final String CASE_SENSETIVE_REGEX_PATTERN = "(?i)";
 
     public static void main(String[] args) {
         String input = "Ittiiiiiiiii couzzzcccc shhhsiishh";
@@ -15,23 +16,30 @@ public class LettersRemover {
     }
 
     public static String deleteFirstLetterValue(String inputWord) {
+
         if (inputWord == null || inputWord.length() == 0) {
             throw new IllegalArgumentException("Word can not be null or its length should be more then 0");
         }
 
-        String firstLetter = inputWord.substring(0, 1);
-        String regexToRemoveByChar = "(?i)" + firstLetter;
+        char firstChar = inputWord.charAt(0);
+        String regexToRemoveByChar = CASE_SENSETIVE_REGEX_PATTERN + firstChar;
 
-        return inputWord.length() > 1 ? firstLetter + inputWord.substring(1).replaceAll(regexToRemoveByChar, "") : inputWord;
+        return inputWord.length() > 1
+                ? firstChar + inputWord.substring(1).replaceAll(regexToRemoveByChar, "")
+                : inputWord;
     }
 
     public static String deleteLastLetterValue(String inputWord) {
+
         if (inputWord == null || inputWord.length() == 0) {
             throw new IllegalArgumentException("Word can not be null or its length should be more then 0");
         }
-        int lastLeterIndex = inputWord.length() - 1;
-        String regexToRemoveByChar = "(?i)" + inputWord.substring(lastLeterIndex);
-        return inputWord.length() > 1 ?  inputWord.replaceAll(regexToRemoveByChar, "") + inputWord.charAt(lastLeterIndex) : inputWord;
+
+        char lastChar = inputWord.charAt(inputWord.length() - 1);
+        String regexToRemoveByChar = CASE_SENSETIVE_REGEX_PATTERN + lastChar;
+        return inputWord.length() > 1
+                ? inputWord.replaceAll(regexToRemoveByChar, "") + lastChar
+                : inputWord;
     }
 
     public static String[] deletionInArray(String input, Function<String, String> functionForEveryItem) {

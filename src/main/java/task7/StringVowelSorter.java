@@ -16,9 +16,9 @@ public class StringVowelSorter {
     }
 
     public static String[] sortByVowelPercent(String input) {
-        String[] resultArray = input.split(" ");
-        Arrays.sort(resultArray, Comparator.comparingInt(StringVowelSorter::calculateVowelPercent));
-        return resultArray;
+        return Arrays.stream(input.split(" "))
+                .sorted(Comparator.comparingInt(StringVowelSorter::calculateVowelPercent))
+                .toArray(String[]::new);
     }
 
     public static int calculateVowelPercent(String inputWord) {
@@ -28,15 +28,6 @@ public class StringVowelSorter {
                 .length();
 
         return (countOfVowel * 100 / wordLength);
-    }
-
-    public static void calculateVowelPercentWithY(String inputWord) {
-        int wordLength = inputWord.length();
-        int countOfVowel = ruleWithY.matcher(inputWord)
-                .replaceAll("")
-                .length();
-
-        System.out.println(countOfVowel);
     }
 
 
